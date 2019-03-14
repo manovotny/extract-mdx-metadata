@@ -1,36 +1,12 @@
 const fs = require('fs');
 
-const {parse} = require('@babel/parser');
-const generate = require('@babel/generator').default;
-const traverse = require('@babel/traverse').default;
-const mdx = require('@mdx-js/mdx');
-const visit = require('unist-util-visit');
+const extractMdxMeta = require('../index');
 
 (async () => {
     const path = 'example/example.mdx';
-    const contents = fs.readFileSync(path);
+    const content = fs.readFileSync(path);
+    const meta = await extractMdxMeta(content);
 
-    let meta;
-
-    await mdx(contents, {
-        mdPlugins: [
-            () => (tree) => {
-                visit(tree, 'export', (node) => {
-                    const ast = parse(node.value, {plugins: ['jsx'], sourceType: 'module'});
-
-                    traverse(ast, {
-                        VariableDeclarator: (path) => {
-                            if (path.node.id.name === 'meta') {
-                                meta = eval(`module.exports = ${generate(path.node.init).code}`);
-                                return;
-                            }
-                        }
-                    });
-                });
-            }
-        ]
-    });
-
+    // eslint-disable-next-line no-console
     console.log('meta', meta);
-    console.log('typeof meta', typeof meta);
 })();

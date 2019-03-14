@@ -10,22 +10,21 @@ module.exports = async (content, options) => {
     };
     const mergedOptions = {
         ...defaultOptions,
-        options
+        ...options
     };
 
     let meta = mergedOptions.defaultReturnValue;
 
-    const result = await mdx(content, {
+    await mdx(content, {
         mdPlugins: [
             () => (tree) => {
                 visit(tree, 'export', (node) => {
-                    const ast = parse(node.value, {sourceType: 'module'});
-
+                    const ast = parse(node.value, {plugins: ['jsx'], sourceType: 'module'});
                     traverse(ast, {
                         VariableDeclarator: (path) => {
                             if (path.node.id.name === 'meta') {
-                                tree.children = [path.node];
-                                console.log('tree.children', tree.children);
+                                meta = eval(`module.exports = ${generate(path.node.init).code}`);
+                                return;
                             }
                         }
                     });
@@ -33,6 +32,6 @@ module.exports = async (content, options) => {
             }
         ]
     });
-    console.log('result', result);
+
     return meta;
 };
