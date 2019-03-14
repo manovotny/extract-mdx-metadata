@@ -19,11 +19,17 @@ module.exports = async (content, options) => {
         mdPlugins: [
             () => (tree) => {
                 visit(tree, 'export', (node) => {
-                    const ast = parse(node.value, {plugins: ['jsx'], sourceType: 'module'});
+                    const ast = parse(node.value, {
+                        plugins: ['jsx'],
+                        sourceType: 'module'
+                    });
+
                     traverse(ast, {
                         VariableDeclarator: (path) => {
                             if (path.node.id.name === 'meta') {
+                                // eslint-disable-next-line no-eval, security/detect-eval-with-expression
                                 meta = eval(`module.exports = ${generate(path.node.init).code}`);
+
                                 return;
                             }
                         }
