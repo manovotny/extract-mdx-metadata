@@ -1,6 +1,6 @@
 {
-    "name": "remark-mdx-metadata",
-    "description": "Remark transformer for modifying MDX metadata.",
+    "name": "extract-mdx-metadata",
+    "description": "Extract MDX metadata without using babel or webpack loaders.",
     "version": "0.0.0",
     "author": {
         "name": "Michael Novotny",
@@ -10,17 +10,15 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/manovotny/remark-mdx-metadata.git"
+        "url": "git+https://github.com/manovotny/extract-mdx-metadata.git"
     },
     "keywords": [
+        "extract",
         "markdown",
         "mdx",
         "mdx-js",
         "meta",
-        "metadata",
-        "remark",
-        "remark-mdx",
-        "remark-plugin"
+        "metadata"
     ],
     "engines": {
         "node": ">=8.6.0",
