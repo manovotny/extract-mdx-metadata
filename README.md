@@ -71,6 +71,7 @@ Type: `Object`
 ##### `defaultReturnValue`
 
 Type: `*`
+
 Default: `{}` (empty `Object`)
 
 The value returned if the content does not contain any metadata.
