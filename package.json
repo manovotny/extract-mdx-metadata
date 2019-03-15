@@ -1,7 +1,7 @@
 {
     "name": "extract-mdx-metadata",
     "description": "Extract MDX metadata without using babel or webpack loaders.",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "author": {
         "name": "Michael Novotny",
         "email": "manovotny@gmail.com",
