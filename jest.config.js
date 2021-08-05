@@ -1,5 +1,5 @@
 module.exports = {
-    collectCoverageFrom: ['**/*.sepc.js'],
+    collectCoverageFrom: ['**/*.test.js'],
     coverageDirectory: '.coverage',
     coverageThreshold: {
         global: {
