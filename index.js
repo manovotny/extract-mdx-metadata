@@ -6,11 +6,11 @@ const visit = require('unist-util-visit');
 
 module.exports = async (content, options) => {
     const defaultOptions = {
-        defaultReturnValue: {}
+        defaultReturnValue: {},
     };
     const mergedOptions = {
         ...defaultOptions,
-        ...options
+        ...options,
     };
 
     let meta = mergedOptions.defaultReturnValue;
@@ -21,7 +21,7 @@ module.exports = async (content, options) => {
                 visit(tree, 'export', (node) => {
                     const ast = parse(node.value, {
                         plugins: ['jsx'],
-                        sourceType: 'module'
+                        sourceType: 'module',
                     });
 
                     traverse(ast, {
@@ -32,11 +32,11 @@ module.exports = async (content, options) => {
 
                                 return;
                             }
-                        }
+                        },
                     });
                 });
-            }
-        ]
+            },
+        ],
     });
 
     return meta;

@@ -29,7 +29,7 @@ test('should use default return value when no meta exists', async () => {
 
 test('should use custom return value when no meta exists', async () => {
     const options = {
-        defaultReturnValue: undefined
+        defaultReturnValue: undefined,
     };
     const content = readFixture('no-meta');
 
