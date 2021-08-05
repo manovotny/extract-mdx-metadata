@@ -16,7 +16,7 @@ module.exports = async (content, options) => {
     let meta = mergedOptions.defaultReturnValue;
 
     await mdx(content, {
-        mdPlugins: [
+        remarkPlugins: [
             () => (tree) => {
                 visit(tree, 'export', (node) => {
                     const ast = parse(node.value, {
