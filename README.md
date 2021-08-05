@@ -24,7 +24,7 @@ Say we have the following file, `example.mdx`:
 import something from 'something';
 
 export const meta = {
-    prop: 'value'
+    prop: 'value',
 };
 
 # Title

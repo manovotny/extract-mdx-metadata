@@ -61,6 +61,7 @@
         "jest-resolve": "24.5.0",
         "jest-snapshot-serializer-raw": "1.1.0",
         "lint-staged": "8.1.5",
-        "prettier": "1.16.4"
+        "prettier": "2.3.2",
+        "prettier-config-get-off-my-lawn": "1.0.0"
     }
 }
