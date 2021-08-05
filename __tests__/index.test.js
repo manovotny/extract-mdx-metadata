@@ -22,18 +22,26 @@ test('should extract meta', async () => {
 test('should use default return value when no meta exists', async () => {
     const content = readFixture('no-meta');
 
-    const meta = await extractMdxMeta(content);
+    const noMeta = await extractMdxMeta(content);
 
-    expect(wrap(meta)).toMatchSnapshot();
+    expect(wrap(noMeta)).toMatchSnapshot();
 });
 
 test('should use custom return value when no meta exists', async () => {
     const options = {
         defaultReturnValue: undefined,
     };
-    const content = readFixture('no-meta');
+    const noMeta = readFixture('no-meta');
 
-    const meta = await extractMdxMeta(content, options);
+    const meta = await extractMdxMeta(noMeta, options);
 
     expect(wrap(meta)).toMatchSnapshot();
+});
+
+test('should noop for any other export not named "meta"', async () => {
+    const content = readFixture('other');
+
+    const other = await extractMdxMeta(content);
+
+    expect(wrap(other)).toMatchSnapshot();
 });
