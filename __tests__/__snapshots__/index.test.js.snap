@@ -8,6 +8,12 @@ Object {
 }
 `;
 
+exports[`should noop for any other export not named "meta" 1`] = `
+Object {
+  Symbol(jest-snapshot-serializer-raw): Object {},
+}
+`;
+
 exports[`should use custom return value when no meta exists 1`] = `
 Object {
   Symbol(jest-snapshot-serializer-raw): undefined,
