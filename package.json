@@ -53,8 +53,8 @@
     },
     "devDependencies": {
         "@vercel/git-hooks": "1.0.0",
-        "eslint": "4.19.1",
-        "eslint-config-get-off-my-lawn-prettier": "1.0.0",
+        "eslint": "7.22.0",
+        "eslint-config-get-off-my-lawn": "6.0.1",
         "jest": "24.5.0",
         "jest-haste-map": "24.5.0",
         "jest-resolve": "24.5.0",

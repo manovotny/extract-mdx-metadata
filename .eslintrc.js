@@ -1,3 +1,3 @@
 module.exports = {
-    extends: 'get-off-my-lawn-prettier',
+    extends: 'get-off-my-lawn',
 };
