@@ -44,10 +44,10 @@
         ]
     },
     "dependencies": {
-        "@babel/core": "7.3.4",
-        "@babel/generator": "7.3.4",
-        "@babel/parser": "7.3.4",
-        "@babel/traverse": "7.3.4",
+        "@babel/core": "7.15.0",
+        "@babel/generator": "7.15.0",
+        "@babel/parser": "7.15.0",
+        "@babel/traverse": "7.15.0",
         "@mdx-js/mdx": "1.6.22",
         "unist-util-visit": "1.4.0"
     },
