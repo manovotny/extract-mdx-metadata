@@ -16,7 +16,6 @@ import requireFromString from 'require-from-string';
         bundle: true,
         write: false,
         format: 'cjs',
-        external: ['react/jsx-runtime'],
         define: {
             'process.env.NODE_ENV': '"production"',
         },
