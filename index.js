@@ -1,33 +1,11 @@
-const {parse} = require('@babel/parser');
-const generate = require('@babel/generator').default;
-const traverse = require('@babel/traverse').default;
-const mdx = require('@mdx-js/mdx');
-const visit = require('unist-util-visit');
+import xdm from 'xdm/esbuild.js';
+import esbuild from 'esbuild';
+import requireFromString from 'require-from-string';
+import dotProp from 'dot-prop';
 
 let meta;
 
-// eslint-disable-next-line unicorn/consistent-function-scoping
-const extractMdxMetadata = () => (tree) => {
-    visit(tree, 'export', (node) => {
-        const ast = parse(node.value, {
-            plugins: ['jsx'],
-            sourceType: 'module',
-        });
-
-        traverse(ast, {
-            VariableDeclarator: (path) => {
-                if (path.node.id.name === 'meta') {
-                    // eslint-disable-next-line no-eval, security/detect-eval-with-expression
-                    meta = eval(`module.exports = ${generate(path.node.init).code}`);
-
-                    return;
-                }
-            },
-        });
-    });
-};
-
-module.exports = async (content, options) => {
+export default async (path, options) => {
     const defaultOptions = {
         defaultReturnValue: {},
     };
@@ -36,11 +14,15 @@ module.exports = async (content, options) => {
         ...options,
     };
 
-    meta = mergedOptions.defaultReturnValue;
-
-    await mdx(content, {
-        remarkPlugins: [extractMdxMetadata],
+    const build = await esbuild.build({
+        entryPoints: [path],
+        bundle: true,
+        write: false,
+        format: 'cjs',
+        plugins: [xdm()],
     });
 
-    return meta;
+    // const text = dotProp(build, 'outputFiles.0.text', mergedOptions.defaultReturnValue);
+    // console.log('text', text);
+    // console.log('meta', requireFromString(build.outputFiles[0].text).meta);
 };

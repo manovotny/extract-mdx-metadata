@@ -1,13 +1,24 @@
-const fs = require('fs');
-
-const extractMdxMeta = require('../index');
+import xdm from 'xdm/esbuild.js';
+import esbuild from 'esbuild';
+import requireFromString from 'require-from-string';
 
 (async () => {
     const path = 'example/example.mdx';
-    // eslint-disable-next-line node/no-sync
-    const content = fs.readFileSync(path);
-    const meta = await extractMdxMeta(content);
 
-    // eslint-disable-next-line no-console
-    console.log('meta', meta);
+    // const content = fs.readFileSync(path, {encoding: 'utf8'});
+    // console.log('content', content);
+
+    // const transform = esbuild.transformSync(content);
+    // console.log('transform', transform);
+
+    const build = await esbuild.build({
+        entryPoints: [path],
+        bundle: true,
+        write: false,
+        format: 'cjs',
+        external: ['react/jsx-runtime'],
+        plugins: [xdm()],
+    });
+
+    console.log('meta', requireFromString(build.outputFiles[0].text).meta);
 })();
