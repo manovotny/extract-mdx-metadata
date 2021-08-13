@@ -17,6 +17,15 @@ import requireFromString from 'require-from-string';
         write: false,
         format: 'cjs',
         external: ['react/jsx-runtime'],
+        define: {
+            'process.env.NODE_ENV': '"production"',
+        },
+        loader: {
+            '.jpeg': 'dataurl',
+            '.jpg': 'dataurl',
+            '.png': 'dataurl',
+            '.svg': 'dataurl',
+        },
         plugins: [xdm()],
     });
 
