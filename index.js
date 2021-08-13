@@ -3,8 +3,6 @@ import esbuild from 'esbuild';
 import requireFromString from 'require-from-string';
 import dotProp from 'dot-prop';
 
-let meta;
-
 export default async (path, options) => {
     const defaultOptions = {
         defaultReturnValue: {},
@@ -19,10 +17,22 @@ export default async (path, options) => {
         bundle: true,
         write: false,
         format: 'cjs',
+        define: {
+            'process.env.NODE_ENV': '"production"',
+        },
+        loader: {
+            '.jpeg': 'dataurl',
+            '.jpg': 'dataurl',
+            '.png': 'dataurl',
+            '.svg': 'dataurl',
+        },
         plugins: [xdm()],
     });
 
-    // const text = dotProp(build, 'outputFiles.0.text', mergedOptions.defaultReturnValue);
-    // console.log('text', text);
-    // console.log('meta', requireFromString(build.outputFiles[0].text).meta);
+    const bundle = dotProp.get(build, 'outputFiles.0.text', {});
+    const required = requireFromString(bundle);
+    const meta = required.meta;
+
+    console.log('meta', meta);
+    return meta;
 };
