@@ -27,7 +27,7 @@
     "main": "index.mjs",
     "scripts": {
         "coverage": "jest --coverage",
-        "example": "node example/example.js",
+        "example": "node example/example.mjs",
         "lint": "eslint . --ext .json --ext .js",
         "prettier": "prettier --write --ignore-unknown .",
         "prettier-check": "prettier --check --ignore-unknown .",
