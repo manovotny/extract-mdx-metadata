@@ -24,11 +24,11 @@
         "node": ">=12.20.0",
         "yarn": ">=1.0.0"
     },
-    "main": "index.mjs",
+    "main": "index.js",
     "scripts": {
         "coverage": "jest --coverage",
-        "example": "node example/example.mjs",
-        "lint": "eslint . --ext .json --ext .js",
+        "example": "node example/example.js",
+        "lint": "eslint . --ext .js,.json",
         "prettier": "prettier --write --ignore-unknown .",
         "prettier-check": "prettier --check --ignore-unknown .",
         "test": "yarn lint && yarn prettier-check && yarn coverage",

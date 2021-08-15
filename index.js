@@ -1,9 +1,8 @@
-import xdm from 'xdm/esbuild.js';
-import esbuild from 'esbuild';
-import requireFromString from 'require-from-string';
-import dotProp from 'dot-prop';
+const esbuild = require('esbuild');
+const requireFromString = require('require-from-string');
+const dotProp = require('dot-prop');
 
-export default async (path, options) => {
+module.exports = async (path, options) => {
     const defaultOptions = {
         defaultReturnValue: {},
     };
@@ -12,6 +11,7 @@ export default async (path, options) => {
         ...options,
     };
 
+    const {default: xdm} = await import('xdm/esbuild.js');
     const build = await esbuild.build({
         bundle: true,
         define: {

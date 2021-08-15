@@ -1,4 +1,4 @@
-import extractMdxMetadata from '../index.mjs';
+const extractMdxMetadata = require('../index');
 
 (async () => {
     const meta = await extractMdxMetadata('example/example.mdx');
