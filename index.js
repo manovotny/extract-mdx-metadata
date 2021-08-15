@@ -13,13 +13,12 @@ export default async (path, options) => {
     };
 
     const build = await esbuild.build({
-        entryPoints: [path],
         bundle: true,
-        write: false,
-        format: 'cjs',
         define: {
             'process.env.NODE_ENV': '"production"',
         },
+        entryPoints: [path],
+        format: 'cjs',
         loader: {
             '.jpeg': 'dataurl',
             '.jpg': 'dataurl',
@@ -27,12 +26,11 @@ export default async (path, options) => {
             '.svg': 'dataurl',
         },
         plugins: [xdm()],
+        write: false,
     });
 
     const bundle = dotProp.get(build, 'outputFiles.0.text', {});
     const required = requireFromString(bundle);
-    const meta = required.meta;
 
-    console.log('meta', meta);
-    return meta;
+    return required.meta || mergedOptions.defaultReturnValue;
 };
