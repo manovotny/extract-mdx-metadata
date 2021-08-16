@@ -45,11 +45,10 @@
     },
     "dependencies": {
         "dot-prop": "6.0.1",
-        "esbuild": "0.12.19",
+        "esbuild": "0.12.20",
+        "react": "17.0.2",
         "require-from-string": "2.0.2",
-        "rollup": "2.56.1",
-        "rollup-plugin-mdx": "0.1.0",
-        "xdm": "1.12.2"
+        "xdm": "2.0.0"
     },
     "devDependencies": {
         "@vercel/git-hooks": "1.0.0",
