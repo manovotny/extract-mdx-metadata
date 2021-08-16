@@ -24,13 +24,14 @@
         "node": ">=12.20.0",
         "yarn": ">=1.0.0"
     },
-    "main": "index.js",
+    "type": "module",
+    "exports": "./index.js",
     "scripts": {
         "coverage": "jest --coverage",
         "example": "node example/example.js",
         "lint": "eslint . --ext .js,.json",
         "prettier": "prettier --write --ignore-unknown .",
-        "prettier-check": "prettier --check --ignore-unknown .",
+        "prettier:check": "prettier --check --ignore-unknown .",
         "test": "yarn lint && yarn prettier-check && yarn coverage",
         "unit": "jest"
     },
@@ -51,6 +52,7 @@
         "xdm": "2.0.0"
     },
     "devDependencies": {
+        "@babel/preset-react": "7.14.5",
         "@vercel/git-hooks": "1.0.0",
         "eslint": "7.22.0",
         "eslint-config-get-off-my-lawn": "6.0.1",
