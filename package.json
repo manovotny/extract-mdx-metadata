@@ -49,7 +49,6 @@
         "require-from-string": "2.0.2",
         "rollup": "2.56.1",
         "rollup-plugin-mdx": "0.1.0",
-        "unist-util-visit": "2.0.3",
         "xdm": "1.12.2"
     },
     "devDependencies": {
