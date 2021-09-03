@@ -1,4 +1,4 @@
-module.exports = {
+export default () => ({
     cacheDirectory: '.jest/cache',
     coverageDirectory: '.jest/coverage',
     coverageThreshold: {
@@ -9,7 +9,8 @@ module.exports = {
             statements: 100,
         },
     },
+    snapshotResolver: './jest.snapshot.cjs',
     snapshotSerializers: ['jest-snapshot-serializer-raw'],
-    testEnvironment: 'node',
-    testMatch: ['**/*.test.js'],
-};
+    resolver: './jest.esm.cjs',
+    transform: {},
+});
