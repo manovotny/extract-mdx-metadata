@@ -52,7 +52,6 @@
         "xdm": "2.0.0"
     },
     "devDependencies": {
-        "@babel/preset-react": "7.14.5",
         "@vercel/git-hooks": "1.0.0",
         "cross-env": "7.0.3",
         "eslint": "7.22.0",
