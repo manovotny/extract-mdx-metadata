@@ -27,13 +27,13 @@
     "type": "module",
     "exports": "./index.js",
     "scripts": {
-        "coverage": "jest --coverage",
+        "coverage": "yarn unit --coverage",
         "example": "node example/example.js",
         "lint": "eslint . --ext .js,.json",
         "prettier": "prettier --write --ignore-unknown .",
         "prettier:check": "prettier --check --ignore-unknown .",
-        "test": "yarn lint && yarn prettier-check && yarn coverage",
-        "unit": "jest"
+        "test": "yarn lint && yarn prettier:check && yarn coverage",
+        "unit": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
     },
     "git": {
         "pre-commit": "lint-staged"
@@ -54,6 +54,7 @@
     "devDependencies": {
         "@babel/preset-react": "7.14.5",
         "@vercel/git-hooks": "1.0.0",
+        "cross-env": "7.0.3",
         "eslint": "7.22.0",
         "eslint-config-get-off-my-lawn": "6.0.1",
         "jest": "27.0.6",
