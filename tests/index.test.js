@@ -1,5 +1,4 @@
 import {join} from 'path';
-import {readFileSync} from 'fs';
 
 import {wrap} from 'jest-snapshot-serializer-raw';
 
