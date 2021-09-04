@@ -56,7 +56,7 @@ meta {
 };
 ```
 
-You can try this yourself by downloading or cloning the project, installing dependencies, and running `yarn example`.
+You can try this yourself by downloading or cloning the project, installing dependencies, and running `npm run example`.
 
 ## API
 
