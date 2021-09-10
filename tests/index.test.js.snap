@@ -8,6 +8,26 @@ Object {
 }
 `;
 
+exports[`should handle dynamic meta 1`] = `
+Object {
+  Symbol(jest-snapshot-serializer-raw): Object {
+    "authors": Array [
+      Object {
+        "name": "Jane Doe",
+        "twitter": "@janedoe",
+        "website": "janedoe.com",
+      },
+      Object {
+        "name": "John Doe",
+        "twitter": "@johndoe",
+        "website": "johndoe.com",
+      },
+    ],
+    "date": "2020-01-01",
+  },
+}
+`;
+
 exports[`should noop for any other export not named "meta" 1`] = `
 Object {
   Symbol(jest-snapshot-serializer-raw): Object {},

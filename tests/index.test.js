@@ -45,3 +45,11 @@ test('should noop for any other export not named "meta"', async () => {
 
     expect(wrap(meta)).toMatchSnapshot();
 });
+
+test('should handle dynamic meta', async () => {
+    const path = getFixture('dynamic');
+
+    const meta = await extractMdxMeta(path);
+
+    expect(wrap(meta)).toMatchSnapshot();
+});
