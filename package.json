@@ -26,7 +26,7 @@
     "type": "module",
     "exports": "./index.js",
     "scripts": {
-        "coverage": "npm run unit --coverage",
+        "coverage": "npm run unit -- --coverage",
         "example": "node example/example.js",
         "lint": "eslint . --ext .js,.json",
         "lint-staged": "lint-staged",
