@@ -1,9 +1,11 @@
 import {join} from 'path';
 
+import Chance from 'chance';
 import validDataUrl from 'valid-data-url';
 
 import extractMdxMeta from '../index.js';
 
+const chance = new Chance();
 const getFixture = (name) => {
     const directory = new URL('.', import.meta.url).pathname;
     const path = join(directory, 'fixtures', `${name}.mdx`);
@@ -114,11 +116,11 @@ test('should return build-in return value when no meta exists', async () => {
 
 test('should return custom return value when no meta exists', async () => {
     const options = {
-        defaultReturnValue: undefined,
+        defaultReturnValue: chance.string(),
     };
     const path = getFixture('none');
 
     const meta = await extractMdxMeta(path, options);
 
-    expect(meta).toBe(undefined);
+    expect(meta).toBe(options.defaultReturnValue);
 });
