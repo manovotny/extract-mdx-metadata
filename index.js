@@ -6,43 +6,50 @@ import dotProp from 'dot-prop';
 import xdm from 'xdm/esbuild.js';
 
 export default async (path, options) => {
-    const defaultOptions = {
+    const {assetPrefix: publicPath, defaultReturnValue} = {
+        assetPrefix: undefined,
         defaultReturnValue: {},
-    };
-    const mergedOptions = {
-        ...defaultOptions,
         ...options,
     };
-    const previousWorkingDirectory = process.cwd();
-    const resolveFromPath = `${parse(resolve(path)).dir}`;
-
-    process.chdir(resolveFromPath);
-
-    const build = await esbuild.build({
-        // assetNames: '[name]',
+    const esbuildOptions = {
         bundle: true,
         define: {
             'process.env.NODE_ENV': '"production"',
         },
         entryPoints: [path],
         format: 'cjs',
+        plugins: [xdm()],
+        write: false,
+    };
+    const esbuildDataurlOptions = {
         loader: {
             //     '.jpeg': 'dataurl',
             //     '.jpg': 'dataurl',
-            //     '.jpg': 'file',
             //     '.png': 'dataurl',
             //     '.svg': 'dataurl',
         },
-        // outdir: 'out',
-        plugins: [xdm()],
-        // publicPath: 'https://www.example.com/v1',
-        write: false,
-    });
+    };
+    const esbuildAssetPathOptions = {
+        // assetNames: '[name]',
+        loader: {
+            //     '.jpeg': 'file',
+            //     '.jpg': 'file',
+            //     '.png': 'file',
+            //     '.svg': 'file',
+        },
+        // publicPath,
+    };
+    const previousWorkingDirectory = process.cwd();
+    const resolveFromPath = `${parse(resolve(path)).dir}`;
+
+    process.chdir(resolveFromPath);
+
+    const build = await esbuild.build(esbuildOptions);
 
     const bundle = dotProp.get(build, 'outputFiles.0.text', {});
     const required = requireFromString(bundle);
 
     process.chdir(previousWorkingDirectory);
 
-    return required.meta || mergedOptions.defaultReturnValue;
+    return required.meta || defaultReturnValue;
 };

@@ -11,29 +11,18 @@ const getFixture = (name) => {
     return path;
 };
 
-test('should extract meta', async () => {
-    const path = getFixture('meta');
+test('should extract static meta', async () => {
+    const path = getFixture('static');
 
     const meta = await extractMdxMeta(path);
 
     expect(wrap(meta)).toMatchSnapshot();
 });
 
-test('should use default return value when no meta exists', async () => {
-    const path = getFixture('no-meta');
+test('should extract dynamic meta', async () => {
+    const path = getFixture('dynamic');
 
     const meta = await extractMdxMeta(path);
-
-    expect(wrap(meta)).toMatchSnapshot();
-});
-
-test('should use custom return value when no meta exists', async () => {
-    const options = {
-        defaultReturnValue: undefined,
-    };
-    const path = getFixture('no-meta');
-
-    const meta = await extractMdxMeta(path, options);
 
     expect(wrap(meta)).toMatchSnapshot();
 });
@@ -46,10 +35,21 @@ test('should noop for any other export not named "meta"', async () => {
     expect(wrap(meta)).toMatchSnapshot();
 });
 
-test('should handle dynamic meta', async () => {
-    const path = getFixture('dynamic');
+test('should return build-in return value when no meta exists', async () => {
+    const path = getFixture('none');
 
     const meta = await extractMdxMeta(path);
+
+    expect(wrap(meta)).toMatchSnapshot();
+});
+
+test('should return custom return value when no meta exists', async () => {
+    const options = {
+        defaultReturnValue: undefined,
+    };
+    const path = getFixture('none');
+
+    const meta = await extractMdxMeta(path, options);
 
     expect(wrap(meta)).toMatchSnapshot();
 });

@@ -31,9 +31,10 @@
         "lint": "eslint . --ext .js,.json",
         "lint-staged": "lint-staged",
         "prettier": "prettier --write --ignore-unknown .",
-        "prettier-check": "prettier --check --ignore-unknown .",
-        "test": "npm run lint && npm run prettier-check && npm run coverage",
+        "prettier:check": "prettier --check --ignore-unknown .",
+        "test": "npm run lint && npm run prettier:check && npm run coverage",
         "unit": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+        "unit:update": "npm run unit -- --updateSnapshot",
         "update": "npm-check -u"
     },
     "git": {

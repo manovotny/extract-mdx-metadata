@@ -1,14 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should extract meta 1`] = `
-Object {
-  Symbol(jest-snapshot-serializer-raw): Object {
-    "prop": "value",
-  },
-}
-`;
-
-exports[`should handle dynamic meta 1`] = `
+exports[`should extract dynamic meta 1`] = `
 Object {
   Symbol(jest-snapshot-serializer-raw): Object {
     "authors": Array [
@@ -28,20 +20,28 @@ Object {
 }
 `;
 
+exports[`should extract static meta 1`] = `
+Object {
+  Symbol(jest-snapshot-serializer-raw): Object {
+    "prop": "value",
+  },
+}
+`;
+
 exports[`should noop for any other export not named "meta" 1`] = `
 Object {
   Symbol(jest-snapshot-serializer-raw): Object {},
 }
 `;
 
-exports[`should use custom return value when no meta exists 1`] = `
+exports[`should return build-in return value when no meta exists 1`] = `
 Object {
-  Symbol(jest-snapshot-serializer-raw): undefined,
+  Symbol(jest-snapshot-serializer-raw): Object {},
 }
 `;
 
-exports[`should use default return value when no meta exists 1`] = `
+exports[`should return custom return value when no meta exists 1`] = `
 Object {
-  Symbol(jest-snapshot-serializer-raw): Object {},
+  Symbol(jest-snapshot-serializer-raw): undefined,
 }
 `;
