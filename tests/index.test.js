@@ -115,12 +115,12 @@ test('should return build-in return value when no meta exists', async () => {
 });
 
 test('should return custom return value when no meta exists', async () => {
-    const options = {
-        defaultReturnValue: chance.string(),
-    };
+    const defaultReturnValue = chance.string();
     const path = getFixture('none');
 
-    const meta = await extractMdxMeta(path, options);
+    const meta = await extractMdxMeta(path, {
+        defaultReturnValue,
+    });
 
-    expect(meta).toBe(options.defaultReturnValue);
+    expect(meta).toBe(defaultReturnValue);
 });
