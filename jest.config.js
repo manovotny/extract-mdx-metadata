@@ -10,7 +10,5 @@ export default () => ({
         },
     },
     resolver: './jest.esm.cjs',
-    snapshotResolver: './jest.snapshot.cjs',
-    snapshotSerializers: ['jest-snapshot-serializer-raw'],
     transform: {},
 });

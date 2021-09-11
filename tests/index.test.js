@@ -1,7 +1,5 @@
 import {join} from 'path';
 
-import {wrap} from 'jest-snapshot-serializer-raw';
-
 import extractMdxMeta from '../index.js';
 
 const getFixture = (name) => {
@@ -18,8 +16,6 @@ test('should reset working directory when done', async () => {
     await extractMdxMeta(path);
 
     expect(process.cwd()).toBe(expectedWorkingDirectory);
-
-    expect().toMatchSnapshot();
 });
 
 test('should extract static meta', async () => {
@@ -27,7 +23,9 @@ test('should extract static meta', async () => {
 
     const meta = await extractMdxMeta(path);
 
-    expect(wrap(meta)).toMatchSnapshot();
+    expect(meta).toMatchObject({
+        prop: 'value',
+    });
 });
 
 test('should extract dynamic meta', async () => {
@@ -35,7 +33,21 @@ test('should extract dynamic meta', async () => {
 
     const meta = await extractMdxMeta(path);
 
-    expect(wrap(meta)).toMatchSnapshot();
+    expect(meta).toMatchObject({
+        authors: [
+            {
+                name: 'Jane Doe',
+                twitter: '@janedoe',
+                website: 'janedoe.com',
+            },
+            {
+                name: 'John Doe',
+                twitter: '@johndoe',
+                website: 'johndoe.com',
+            },
+        ],
+        date: '2020-01-01',
+    });
 });
 
 test('should noop for any other export not named "meta"', async () => {
@@ -43,7 +55,7 @@ test('should noop for any other export not named "meta"', async () => {
 
     const meta = await extractMdxMeta(path);
 
-    expect(wrap(meta)).toMatchSnapshot();
+    expect(meta).toMatchObject({});
 });
 
 test('should return build-in return value when no meta exists', async () => {
@@ -51,7 +63,7 @@ test('should return build-in return value when no meta exists', async () => {
 
     const meta = await extractMdxMeta(path);
 
-    expect(wrap(meta)).toMatchSnapshot();
+    expect(meta).toMatchObject({});
 });
 
 test('should return custom return value when no meta exists', async () => {
@@ -62,5 +74,5 @@ test('should return custom return value when no meta exists', async () => {
 
     const meta = await extractMdxMeta(path, options);
 
-    expect(wrap(meta)).toMatchSnapshot();
+    expect(meta).toBe(undefined);
 });
