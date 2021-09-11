@@ -34,6 +34,8 @@ Object {
 }
 `;
 
+exports[`should reset working directory when done 1`] = `undefined`;
+
 exports[`should return build-in return value when no meta exists 1`] = `
 Object {
   Symbol(jest-snapshot-serializer-raw): Object {},

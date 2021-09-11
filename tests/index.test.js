@@ -11,6 +11,17 @@ const getFixture = (name) => {
     return path;
 };
 
+test('should reset working directory when done', async () => {
+    const expectedWorkingDirectory = process.cwd();
+    const path = getFixture('static');
+
+    await extractMdxMeta(path);
+
+    expect(process.cwd()).toBe(expectedWorkingDirectory);
+
+    expect().toMatchSnapshot();
+});
+
 test('should extract static meta', async () => {
     const path = getFixture('static');
 
