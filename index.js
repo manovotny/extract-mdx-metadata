@@ -27,6 +27,7 @@ export default async (path, options) => {
             '.jpg': 'dataurl',
             '.png': 'dataurl',
             '.svg': 'dataurl',
+            '.webp': 'dataurl',
         },
     };
     const esbuildAssetPathOptions = {

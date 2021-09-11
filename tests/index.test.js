@@ -87,6 +87,15 @@ test('should extract svg as dataurl', async () => {
     expect(validDataUrl(image)).toBeTrue();
 });
 
+test('should extract webp as dataurl', async () => {
+    const path = getFixture('webp');
+
+    const {image} = await extractMdxMeta(path);
+
+    expect(image).toStartWith('data:image/webp');
+    expect(validDataUrl(image)).toBeTrue();
+});
+
 test('should noop for any other export not named "meta"', async () => {
     const path = getFixture('other');
 
