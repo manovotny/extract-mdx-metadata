@@ -23,10 +23,10 @@ export default async (path, options) => {
     };
     const esbuildDataurlOptions = {
         loader: {
-            //     '.jpeg': 'dataurl',
-            //     '.jpg': 'dataurl',
-            //     '.png': 'dataurl',
-            //     '.svg': 'dataurl',
+            '.jpeg': 'dataurl',
+            '.jpg': 'dataurl',
+            '.png': 'dataurl',
+            '.svg': 'dataurl',
         },
     };
     const esbuildAssetPathOptions = {
@@ -44,7 +44,10 @@ export default async (path, options) => {
 
     process.chdir(resolveFromPath);
 
-    const build = await esbuild.build(esbuildOptions);
+    const build = await esbuild.build({
+        ...esbuildOptions,
+        ...esbuildDataurlOptions,
+    });
 
     const bundle = dotProp.get(build, 'outputFiles.0.text', {});
     const required = requireFromString(bundle);

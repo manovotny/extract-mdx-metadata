@@ -10,5 +10,6 @@ export default () => ({
         },
     },
     resolver: './jest.esm.cjs',
+    setupFilesAfterEnv: ['jest-extended'],
     transform: {},
 });
