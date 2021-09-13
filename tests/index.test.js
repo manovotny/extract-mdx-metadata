@@ -62,6 +62,18 @@ test('should extract jpeg as dataurl', async () => {
     expect(validDataUrl(image)).toBeTrue();
 });
 
+test('should extract jpeg with asset path prefix', async () => {
+    const extension = 'jpeg';
+    const assetPrefix = chance.url();
+    const path = getFixture(extension);
+
+    const {image} = await extractMdxMeta(path, {
+        assetPrefix: assetPrefix,
+    });
+
+    expect(image).toBe(`${assetPrefix}/example.${extension}`);
+});
+
 test('should extract jpg as dataurl', async () => {
     const path = getFixture('jpg');
 
@@ -69,6 +81,18 @@ test('should extract jpg as dataurl', async () => {
 
     expect(image).toStartWith('data:image/jpeg');
     expect(validDataUrl(image)).toBeTrue();
+});
+
+test('should extract jpg with asset path prefix', async () => {
+    const extension = 'jpg';
+    const assetPrefix = chance.url();
+    const path = getFixture(extension);
+
+    const {image} = await extractMdxMeta(path, {
+        assetPrefix: assetPrefix,
+    });
+
+    expect(image).toBe(`${assetPrefix}/example.${extension}`);
 });
 
 test('should extract png as dataurl', async () => {
@@ -80,6 +104,18 @@ test('should extract png as dataurl', async () => {
     expect(validDataUrl(image)).toBeTrue();
 });
 
+test('should extract png with asset path prefix', async () => {
+    const extension = 'png';
+    const assetPrefix = chance.url();
+    const path = getFixture(extension);
+
+    const {image} = await extractMdxMeta(path, {
+        assetPrefix: assetPrefix,
+    });
+
+    expect(image).toBe(`${assetPrefix}/example.${extension}`);
+});
+
 test('should extract svg as dataurl', async () => {
     const path = getFixture('svg');
 
@@ -89,6 +125,18 @@ test('should extract svg as dataurl', async () => {
     expect(validDataUrl(image)).toBeTrue();
 });
 
+test('should extract svg with asset path prefix', async () => {
+    const extension = 'svg';
+    const assetPrefix = chance.url();
+    const path = getFixture(extension);
+
+    const {image} = await extractMdxMeta(path, {
+        assetPrefix: assetPrefix,
+    });
+
+    expect(image).toBe(`${assetPrefix}/example.${extension}`);
+});
+
 test('should extract webp as dataurl', async () => {
     const path = getFixture('webp');
 
@@ -96,6 +144,18 @@ test('should extract webp as dataurl', async () => {
 
     expect(image).toStartWith('data:image/webp');
     expect(validDataUrl(image)).toBeTrue();
+});
+
+test('should extract webp with asset path prefix', async () => {
+    const extension = 'webp';
+    const assetPrefix = chance.url();
+    const path = getFixture(extension);
+
+    const {image} = await extractMdxMeta(path, {
+        assetPrefix: assetPrefix,
+    });
+
+    expect(image).toBe(`${assetPrefix}/example.${extension}`);
 });
 
 test('should noop for any other export not named "meta"', async () => {

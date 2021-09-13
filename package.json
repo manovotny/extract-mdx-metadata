@@ -44,7 +44,6 @@
         "*": "prettier --write --ignore-unknown"
     },
     "dependencies": {
-        "dot-prop": "6.0.1",
         "esbuild": "0.12.20",
         "react": "17.0.2",
         "require-from-string": "2.0.2",

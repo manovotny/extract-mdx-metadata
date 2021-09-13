@@ -2,7 +2,6 @@ import {parse, resolve} from 'path';
 
 import esbuild from 'esbuild';
 import requireFromString from 'require-from-string';
-import dotProp from 'dot-prop';
 import xdm from 'xdm/esbuild.js';
 
 export default async (path, options) => {
@@ -11,47 +10,34 @@ export default async (path, options) => {
         defaultReturnValue: {},
         ...options,
     };
-    const esbuildOptions = {
-        bundle: true,
-        define: {
-            'process.env.NODE_ENV': '"production"',
-        },
-        entryPoints: [path],
-        format: 'cjs',
-        plugins: [xdm()],
-        write: false,
-    };
-    const esbuildDataurlOptions = {
-        loader: {
-            '.jpeg': 'dataurl',
-            '.jpg': 'dataurl',
-            '.png': 'dataurl',
-            '.svg': 'dataurl',
-            '.webp': 'dataurl',
-        },
-    };
-    const esbuildAssetPathOptions = {
-        // assetNames: '[name]',
-        loader: {
-            //     '.jpeg': 'file',
-            //     '.jpg': 'file',
-            //     '.png': 'file',
-            //     '.svg': 'file',
-        },
-        // publicPath,
-    };
+    const assetLoader = publicPath ? 'file' : 'dataurl';
     const previousWorkingDirectory = process.cwd();
     const resolveFromPath = `${parse(resolve(path)).dir}`;
 
     process.chdir(resolveFromPath);
 
     const build = await esbuild.build({
-        ...esbuildOptions,
-        ...esbuildDataurlOptions,
+        assetNames: '[name]',
+        bundle: true,
+        define: {
+            'process.env.NODE_ENV': '"production"',
+        },
+        entryPoints: [path],
+        format: 'cjs',
+        loader: {
+            '.jpeg': assetLoader,
+            '.jpg': assetLoader,
+            '.png': assetLoader,
+            '.svg': assetLoader,
+            '.webp': assetLoader,
+        },
+        outdir: 'out',
+        plugins: [xdm()],
+        publicPath,
+        write: false,
     });
-
-    const bundle = dotProp.get(build, 'outputFiles.0.text', {});
-    const required = requireFromString(bundle);
+    const bundle = build.outputFiles.find((file) => file.path.endsWith('.js'));
+    const required = requireFromString(bundle.text);
 
     process.chdir(previousWorkingDirectory);
 
