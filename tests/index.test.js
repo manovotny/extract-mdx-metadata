@@ -68,7 +68,7 @@ test('should extract jpeg with asset path prefix', async () => {
     const path = getFixture(extension);
 
     const {image} = await extractMdxMeta(path, {
-        assetPrefix: assetPrefix,
+        assetPrefix,
     });
 
     expect(image).toBe(`${assetPrefix}/example.${extension}`);
@@ -89,7 +89,7 @@ test('should extract jpg with asset path prefix', async () => {
     const path = getFixture(extension);
 
     const {image} = await extractMdxMeta(path, {
-        assetPrefix: assetPrefix,
+        assetPrefix,
     });
 
     expect(image).toBe(`${assetPrefix}/example.${extension}`);
@@ -110,7 +110,7 @@ test('should extract png with asset path prefix', async () => {
     const path = getFixture(extension);
 
     const {image} = await extractMdxMeta(path, {
-        assetPrefix: assetPrefix,
+        assetPrefix,
     });
 
     expect(image).toBe(`${assetPrefix}/example.${extension}`);
@@ -131,7 +131,7 @@ test('should extract svg with asset path prefix', async () => {
     const path = getFixture(extension);
 
     const {image} = await extractMdxMeta(path, {
-        assetPrefix: assetPrefix,
+        assetPrefix,
     });
 
     expect(image).toBe(`${assetPrefix}/example.${extension}`);
@@ -152,7 +152,7 @@ test('should extract webp with asset path prefix', async () => {
     const path = getFixture(extension);
 
     const {image} = await extractMdxMeta(path, {
-        assetPrefix: assetPrefix,
+        assetPrefix,
     });
 
     expect(image).toBe(`${assetPrefix}/example.${extension}`);
