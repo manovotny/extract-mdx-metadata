@@ -53,6 +53,26 @@ test('should extract dynamic meta', async () => {
     });
 });
 
+test('should handle react in js files', async () => {
+    const path = getFixture('react-js');
+
+    const meta = await extractMdxMeta(path);
+
+    expect(meta).toMatchObject({
+        prop: 'value',
+    });
+});
+
+test('should handle react in jsx files', async () => {
+    const path = getFixture('react-jsx');
+
+    const meta = await extractMdxMeta(path);
+
+    expect(meta).toMatchObject({
+        prop: 'value',
+    });
+});
+
 test('should extract jpeg as dataurl', async () => {
     const path = getFixture('jpeg');
 

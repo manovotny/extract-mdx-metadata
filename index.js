@@ -27,6 +27,7 @@ export default async (path, options) => {
         loader: {
             '.jpeg': assetLoader,
             '.jpg': assetLoader,
+            '.js': 'jsx',
             '.png': assetLoader,
             '.svg': assetLoader,
             '.webp': assetLoader,
