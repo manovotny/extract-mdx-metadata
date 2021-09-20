@@ -84,6 +84,23 @@ import extractMdxMetadata from 'extract-mdx-metadata';
 })();
 ```
 
+## FAQ
+
+### Why am I getting a `Must use import to load ES Module` error?
+
+This package is written as a [pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+
+If you are trying to this package in a CommonJS (aka. CJS) project, you'll need to use a [dynamic import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#dynamic_imports) instead.
+
+```js
+(async () => {
+    const {default: extractMdxMetadata} = await import('extract-mdx-metadata');
+    const meta = await extractMdxMetadata('example.mdx');
+
+    console.log('meta', meta);
+})();
+```
+
 ## License
 
 MIT © [Michael Novotny](https://manovotny.com)
