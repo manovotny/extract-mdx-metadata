@@ -1,46 +1,37 @@
-const {parse} = require('@babel/parser');
-const generate = require('@babel/generator').default;
-const traverse = require('@babel/traverse').default;
-const mdx = require('@mdx-js/mdx');
-const visit = require('unist-util-visit');
+import {parse, resolve} from 'path';
 
-let meta;
+import esbuild from 'esbuild';
+import requireFromString from 'require-from-string';
+import xdm from 'xdm/esbuild.js';
 
-// eslint-disable-next-line unicorn/consistent-function-scoping
-const extractMdxMetadata = () => (tree) => {
-    visit(tree, 'export', (node) => {
-        const ast = parse(node.value, {
-            plugins: ['jsx'],
-            sourceType: 'module',
-        });
-
-        traverse(ast, {
-            VariableDeclarator: (path) => {
-                if (path.node.id.name === 'meta') {
-                    // eslint-disable-next-line no-eval, security/detect-eval-with-expression
-                    meta = eval(`module.exports = ${generate(path.node.init).code}`);
-
-                    return;
-                }
-            },
-        });
-    });
-};
-
-module.exports = async (content, options) => {
-    const defaultOptions = {
+export default async (path, options) => {
+    const {defaultReturnValue} = {
         defaultReturnValue: {},
-    };
-    const mergedOptions = {
-        ...defaultOptions,
         ...options,
     };
+    const previousWorkingDirectory = process.cwd();
+    const resolveFromPath = `${parse(resolve(path)).dir}`;
 
-    meta = mergedOptions.defaultReturnValue;
+    process.chdir(resolveFromPath);
 
-    await mdx(content, {
-        remarkPlugins: [extractMdxMetadata],
+    const build = await esbuild.build({
+        bundle: true,
+        define: {
+            'process.env.NODE_ENV': '"production"',
+        },
+        entryPoints: [path],
+        format: 'cjs',
+        loader: {
+            '.js': 'jsx',
+        },
+        outdir: 'out',
+        plugins: [xdm()],
+        write: false,
     });
+    const bundle = build.outputFiles.find((file) => file.path.endsWith('.js'));
+    const required = requireFromString(bundle.text);
 
-    return meta;
+    process.chdir(previousWorkingDirectory);
+
+    return required.meta || defaultReturnValue;
 };

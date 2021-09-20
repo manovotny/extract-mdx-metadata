@@ -1,12 +1,7 @@
-const fs = require('fs');
-
-const extractMdxMeta = require('../index');
+import extractMdxMetadata from '../index.js';
 
 (async () => {
-    const path = 'example/example.mdx';
-    // eslint-disable-next-line node/no-sync
-    const content = fs.readFileSync(path);
-    const meta = await extractMdxMeta(content);
+    const meta = await extractMdxMetadata('example/example.mdx');
 
     // eslint-disable-next-line no-console
     console.log('meta', meta);
