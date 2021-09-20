@@ -5,19 +5,16 @@ import requireFromString from 'require-from-string';
 import xdm from 'xdm/esbuild.js';
 
 export default async (path, options) => {
-    const {assetPrefix: publicPath, defaultReturnValue} = {
-        assetPrefix: undefined,
+    const {defaultReturnValue} = {
         defaultReturnValue: {},
         ...options,
     };
-    const assetLoader = publicPath ? 'file' : 'dataurl';
     const previousWorkingDirectory = process.cwd();
     const resolveFromPath = `${parse(resolve(path)).dir}`;
 
     process.chdir(resolveFromPath);
 
     const build = await esbuild.build({
-        assetNames: '[name]',
         bundle: true,
         define: {
             'process.env.NODE_ENV': '"production"',
@@ -25,16 +22,10 @@ export default async (path, options) => {
         entryPoints: [path],
         format: 'cjs',
         loader: {
-            '.jpeg': assetLoader,
-            '.jpg': assetLoader,
             '.js': 'jsx',
-            '.png': assetLoader,
-            '.svg': assetLoader,
-            '.webp': assetLoader,
         },
         outdir: 'out',
         plugins: [xdm()],
-        publicPath,
         write: false,
     });
     const bundle = build.outputFiles.find((file) => file.path.endsWith('.js'));

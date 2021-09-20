@@ -60,7 +60,6 @@
         "lint-staged": "11.1.2",
         "npm-check": "5.9.2",
         "prettier": "2.4.0",
-        "prettier-config-get-off-my-lawn": "1.0.0",
-        "valid-data-url": "4.0.0"
+        "prettier-config-get-off-my-lawn": "1.0.0"
     }
 }
