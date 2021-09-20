@@ -21,8 +21,6 @@ $ yarn add extract-mdx-metadata
 Say we have the following file, `example.mdx`:
 
 ```
-import something from 'something';
-
 export const meta = {
     prop: 'value',
 };
@@ -35,14 +33,10 @@ Content.
 And our script, `example.js`, looks as follows:
 
 ```js
-const fs = require('fs');
-
-const extractMdxMeta = require('extract-mdx-metadata');
+import extractMdxMetadata from 'extract-mdx-metadata';
 
 (async () => {
-    const path = 'example/example.mdx';
-    const content = fs.readFileSync(path);
-    const meta = await extractMdxMeta(content);
+    const meta = await extractMdxMetadata('example.mdx');
 
     console.log('meta', meta);
 })();
@@ -60,21 +54,35 @@ You can try this yourself by downloading or cloning the project, installing depe
 
 ## API
 
-### `extractMdxMeta(content, [options])`
+### extractMdxMeta(path, [options])`
 
-Parses content and returns the metadata object.
+Pass a file path to an MDX file and it returns the metadata object.
 
-#### options
+#### options (optional)
 
 Type: `Object`
 
-##### `defaultReturnValue`
+##### defaultReturnValue
 
-Type: `*`
-
+Type: `*`\
 Default: `{}` (empty `Object`)
 
 The value returned if the content does not contain any metadata.
+
+Example:
+
+```js
+import extractMdxMetadata from 'extract-mdx-metadata';
+
+(async () => {
+    const meta = await extractMdxMetadata('mdx-with-no-metadata.mdx', {
+        defaultReturnValue: undefined,
+    });
+
+    console.log('meta', meta);
+    //=> undefined
+})();
+```
 
 ## License
 
